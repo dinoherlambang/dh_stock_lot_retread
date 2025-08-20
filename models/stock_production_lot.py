@@ -4,6 +4,8 @@ class StockProductionLot(models.Model):
     _inherit = 'stock.production.lot'
 
     retread = fields.Boolean(string='Retread (Vulkanisir)')
+    pl_type = fields.Char(string='PL Type', help='Production Lot Type')
+    tire_size = fields.Char(string='Tire Size', help='Size specification of the tire')
     
     # Override product_id to make it conditionally required
     product_id = fields.Many2one(

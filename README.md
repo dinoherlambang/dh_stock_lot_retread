@@ -7,6 +7,8 @@ This Odoo module extends the stock production lot functionality by adding a retr
 ## Features
 
 - Adds a Boolean field `retread` to the `stock.production.lot` model
+- Adds a Char field `pl_type` for Production Lot Type specification
+- Adds a Char field `tire_size` for tire size specification
 - Field is displayed with the label "Retread (Vulkanisir)"
 - Integrated into both form and tree views of stock production lots
 - **Conditional Product Requirement**: When the retread field is checked (True), the Product field becomes optional
@@ -76,6 +78,8 @@ class StockProductionLot(models.Model):
     _inherit = 'stock.production.lot'
 
     retread = fields.Boolean(string='Retread (Vulkanisir)')
+    pl_type = fields.Char(string='PL Type', help='Production Lot Type')
+    tire_size = fields.Char(string='Tire Size', help='Size specification of the tire')
     
     # Override product_id to make it conditionally required
     product_id = fields.Many2one(
