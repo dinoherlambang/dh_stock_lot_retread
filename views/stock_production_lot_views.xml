@@ -1,0 +1,23 @@
+<odoo>
+    <record id="view_stock_production_lot_form_inherit_retread" model="ir.ui.view">
+        <field name="name">stock.production.lot.form.inherit.retread</field>
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='ref']" position="after">
+                <field name="retread"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_stock_production_lot_tree_inherit_retread" model="ir.ui.view">
+        <field name="name">stock.production.lot.tree.inherit.retread</field>
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='ref']" position="after">
+                <field name="retread" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
