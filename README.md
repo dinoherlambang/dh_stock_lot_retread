@@ -11,6 +11,7 @@ This Odoo module extends the stock production lot functionality by adding retrea
 - Adds Tire Size field for tire size specification
 - Conditional Product Requirement: Product field becomes optional when retread is checked
 - Smart Validation: Product field is mandatory only when retread is False
+- Ownership Tracking: Shows current owners from stock quants (read-only)
 - Integrated into both form and tree views
 - Proper access rights configuration
 
@@ -65,9 +66,12 @@ The module adds three new fields after the Internal Reference field:
 - Retread (Vulkanisir): Boolean checkbox
 - PL Type: Text field for production lot type
 - Tire Size: Text field for tire size specification
+- Current Owners: Read-only display of actual owners from stock movements
 
 When retread is unchecked: Product field is mandatory (red label)
 When retread is checked: Product field becomes optional (normal label)
+
+**Important**: Ownership cannot be set directly on lots. It's controlled through stock movements (receipts, transfers, manufacturing, etc.)
 
 ### Tree View
 All new fields are available as optional columns in the list view.
@@ -78,6 +82,7 @@ All new fields are available as optional columns in the list view.
 - retread: Boolean field with string 'Retread (Vulkanisir)'
 - pl_type: Char field with string 'PL Type'
 - tire_size: Char field with string 'Tire Size'
+- current_owner_ids: Computed Many2many field showing actual owners from stock quants
 
 ### Product Field Override
 The product_id field is overridden to be conditionally required based on the retread field value.
@@ -89,6 +94,19 @@ Custom constraint ensures product_id is required when retread is False.
 - Form view: Inherits stock.view_production_lot_form
 - Tree view: Inherits stock.view_production_lot_tree
 - Uses XPath positioning for safe inheritance
+
+### Ownership Management
+This module provides **read-only ownership tracking** for lots/serial numbers:
+
+- **Current Owners Display**: Shows actual owners from stock.quant records
+- **No Direct Assignment**: Ownership cannot be set directly on lots (by design)
+- **Proper Flow**: Ownership is managed through stock movements:
+  - Purchase Orders: Set owner on purchase order lines
+  - Stock Transfers: Set owner on stock move lines  
+  - Manufacturing: Set owner on production moves
+  - Inventory Adjustments: Set owner on adjustment lines
+
+This approach ensures ownership data consistency and follows Odoo's stock management principles.
 
 ## File Structure
 
